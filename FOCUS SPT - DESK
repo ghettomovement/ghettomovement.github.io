@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Focus SPT — Front Desk Reference</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple: #8c52ff;
+    --purple-faint: rgba(140,82,255,0.08);
+    --purple-mid: rgba(140,82,255,0.15);
+    --border-purple: rgba(140,82,255,0.35);
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #181818;
+    --surface3: #202020;
+    --border: rgba(255,255,255,0.08);
+    --text: #ffffff;
+    --text-muted: #888888;
+    --text-dim: #444444;
+    --teal: #2ec4a0;
+    --teal-faint: rgba(46,196,160,0.08);
+    --teal-border: rgba(46,196,160,0.25);
+    --violet: #9b7fe8;
+    --violet-faint: rgba(155,127,232,0.08);
+    --violet-border: rgba(155,127,232,0.25);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    padding: 48px 32px 80px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .brand-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-size: 52px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--purple);
+    line-height: 1;
+  }
+  .header h1 span { color: var(--text); font-weight: 400; }
+  .header-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .header-pitch {
+    max-width: 340px;
+    text-align: right;
+  }
+  .header-pitch p {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 12px;
+    margin-top: 40px;
+  }
+  .section-title:first-of-type { margin-top: 0; }
+
+  /* ── TWO STREAM GRID ── */
+  .stream-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .stream-header {
+    padding: 12px 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--purple);
+    color: #fff;
+    text-align: center;
+  }
+  .stream-header.rehab { background: var(--teal); color: #0a0a0a; }
+  .stream-header.nonrehab { background: var(--violet); color: #fff; }
+
+  .stream-col { display: flex; flex-direction: column; }
+  .stream-col:first-child { border-right: 1px solid var(--border); }
+
+  .stream-row {
+    padding: 12px 18px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .stream-row .label {
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .stream-row .detail { font-size: 12px; color: var(--text-muted); }
+  .stream-row.alt { background: var(--surface2); }
+
+  .stream-footer {
+    grid-column: 1 / -1;
+    background: var(--purple-faint);
+    border-top: 1px solid var(--border-purple);
+    padding: 12px 18px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--purple);
+  }
+
+  /* ── SESSION vs REVIEW TABLE ── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .compare-header {
+    padding: 12px 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--purple);
+    color: #fff;
+    text-align: center;
+  }
+  .compare-body {
+    padding: 16px 18px;
+    background: var(--surface2);
+    border-top: 1px solid var(--border);
+  }
+  .compare-body:nth-child(3) { border-right: 1px solid var(--border); }
+  .compare-sub {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 10px;
+  }
+  .compare-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .compare-list li {
+    font-size: 13px;
+    color: #ccc;
+    padding-left: 14px;
+    position: relative;
+  }
+  .compare-list li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--purple);
+    font-weight: 700;
+  }
+  .compare-footer {
+    grid-column: 1 / -1;
+    background: var(--surface3);
+    border-top: 1px solid var(--border);
+    padding: 10px 18px;
+    text-align: center;
+    font-size: 12px;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  /* ── PRICING ── */
+  .pricing-block { display: flex; flex-direction: column; gap: 8px; }
+
+  .pricing-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 6px 0 4px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+
+  .price-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--surface2);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .price-row.rehab-row { border-color: var(--teal-border); background: var(--teal-faint); }
+  .price-row.nonrehab-row { border-color: var(--violet-border); background: var(--violet-faint); }
+  .price-row.upgrade-row { border-color: var(--border-purple); background: var(--purple-faint); }
+
+  .price-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .price-notes {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .price-notes em {
+    font-style: normal;
+    font-weight: 600;
+  }
+  .price-notes .opt { color: #aaa; }
+  .price-notes .mand { color: var(--teal); }
+  .price-detail {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: right;
+    white-space: nowrap;
+  }
+  .price-amount {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--purple);
+    white-space: nowrap;
+    text-align: right;
+    min-width: 80px;
+  }
+  .price-row.rehab-row .price-amount { color: var(--teal); }
+  .price-row.nonrehab-row .price-amount { color: var(--violet); }
+
+  /* ── QUICK SCRIPT ── */
+  .script-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--purple);
+    border-radius: 0 8px 8px 0;
+    padding: 20px 24px;
+  }
+  .script-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 14px;
+  }
+  .script-steps { display: flex; flex-direction: column; gap: 10px; }
+  .script-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .step-num {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--purple);
+    background: var(--purple-faint);
+    border: 1px solid var(--border-purple);
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-text { font-size: 13px; color: #ddd; line-height: 1.5; }
+  .step-text strong { color: var(--text); }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .footer-brand { font-size: 13px; font-weight: 700; color: var(--purple); letter-spacing: 0.05em; }
+  .footer-meta { font-size: 11px; color: var(--text-dim); }
+
+  @media print {
+    body { padding: 24px; background: #0a0a0a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<div class="header">
+  <div>
+    <div class="brand-label">Ghetto Movement</div>
+    <h1>FOCUS <span>SPT</span></h1>
+    <div class="header-sub">Front Desk Reference</div>
+  </div>
+  <div class="header-pitch">
+    <p>"Personal training results with the energy of a small group. Your program. Your pace. A dedicated coach in the room."</p>
+  </div>
+</div>
+
+<!-- ── HOW IT WORKS ── -->
+<div class="section-title">How it works</div>
+<div class="stream-grid">
+  <div class="stream-header rehab" style="border-right:1px solid rgba(0,0,0,0.15)">Rehab stream · EP-led</div>
+  <div class="stream-header nonrehab">Non-rehab stream · Coach-led</div>
+
+  <div class="stream-col">
+    <div class="stream-row">
+      <div class="label">Enquiry → booked with Exercise Physiologist</div>
+    </div>
+    <div class="stream-row alt">
+      <div class="label">EP Assessment · 60 min · $159</div>
+      <div class="detail">Condition screen, clinical history, rehab program built in session</div>
+    </div>
+  </div>
+  <div class="stream-col">
+    <div class="stream-row">
+      <div class="label">Enquiry → booked with Coach</div>
+    </div>
+    <div class="stream-row alt">
+      <div class="label">Coach Assessment · 60 min · $129</div>
+      <div class="detail">Movement screen, goals, training history, program built in session</div>
+    </div>
+  </div>
+
+  <div class="stream-footer">Every program includes: 1 Focus SPT session/week + 3–4 homework exercises</div>
+</div>
+
+<!-- ── SPT SESSIONS vs REVIEWS ── -->
+<div class="section-title">SPT sessions vs. private reviews</div>
+<div class="compare-grid">
+  <div class="compare-header" style="border-right:1px solid rgba(255,255,255,0.1)">Focus SPT Sessions</div>
+  <div class="compare-header">Private Review Sessions</div>
+  <div class="compare-body">
+    <div class="compare-sub">What happens every session</div>
+    <ul class="compare-list">
+      <li>Monitoring — coach tracks how the client is moving and responding to load</li>
+      <li>Feedback — real-time technique cues and coaching</li>
+      <li>Progression — individual movements may be progressed within the session</li>
+      <li>Accountability — coach keeps clients on track and training consistently</li>
+    </ul>
+  </div>
+  <div class="compare-body">
+    <div class="compare-sub">Reserved for</div>
+    <ul class="compare-list">
+      <li>New program design and full program builds</li>
+      <li>Major program modifications</li>
+      <li>Formal testing and re-testing</li>
+      <li>Goal check-ins and milestone reviews</li>
+      <li>Rehab clearance to transition out of the EP stream</li>
+    </ul>
+  </div>
+  <div class="compare-footer">SPT sessions keep clients moving forward day-to-day. &nbsp;Private reviews reset and rebuild the bigger picture.</div>
+</div>
+
+<!-- ── PRICING ── -->
+<div class="section-title">Pricing</div>
+<div class="pricing-block">
+
+  <div class="pricing-section-label">Assessments</div>
+
+  <div class="price-row rehab-row">
+    <div>
+      <div class="price-name">EP Assessment (Rehab)</div>
+      <div class="price-notes">60 min · Exercise Physiologist</div>
+    </div>
+    <div class="price-detail">Face to face</div>
+    <div class="price-amount">$159</div>
+  </div>
+
+  <div class="price-row nonrehab-row">
+    <div>
+      <div class="price-name">Coach Assessment (Non-rehab)</div>
+      <div class="price-notes">60 min · Coach</div>
+    </div>
+    <div class="price-detail">Face to face</div>
+    <div class="price-amount">$129</div>
+  </div>
+
+  <div class="pricing-section-label">Training split upgrades &nbsp;·&nbsp; add to any assessment or review</div>
+
+  <div class="price-row upgrade-row">
+    <div>
+      <div class="price-name">2–3 day training split</div>
+      <div class="price-notes">Additional programming days</div>
+    </div>
+    <div class="price-detail"></div>
+    <div class="price-amount" style="color:var(--purple)">+$200</div>
+  </div>
+
+  <div class="price-row upgrade-row">
+    <div>
+      <div class="price-name">4–5 day training split</div>
+      <div class="price-notes">Full weekly schedule built</div>
+    </div>
+    <div class="price-detail"></div>
+    <div class="price-amount" style="color:var(--purple)">+$300</div>
+  </div>
+
+  <div class="pricing-section-label">Reviews</div>
+
+  <div class="price-row rehab-row">
+    <div>
+      <div class="price-name">EP Review (Rehab)</div>
+      <div class="price-notes">Major program modifications, re-testing, new program delivery, or rehab clearance</div>
+      <div class="price-notes" style="margin-top:6px;">
+        <em class="opt">4 week review — $120 &nbsp;(optional)</em> &nbsp;&nbsp;
+        <em class="mand">8 week review — $159 &nbsp;(mandatory)</em>
+      </div>
+    </div>
+    <div class="price-detail">EP-led · Online or F2F</div>
+    <div class="price-amount">$120–159</div>
+  </div>
+
+  <div class="price-row nonrehab-row">
+    <div>
+      <div class="price-name">Coach Review (Non-rehab)</div>
+      <div class="price-notes">Testing, goal check-ins &amp; new SPT program build out</div>
+    </div>
+    <div class="price-detail">Every 8–12 weeks · F2F</div>
+    <div class="price-amount">$129</div>
+  </div>
+
+</div>
+
+<!-- ── QUICK SCRIPT ── -->
+<div class="section-title">Front desk quick script</div>
+<div class="script-box">
+  <div class="script-title">When someone enquires about Focus SPT</div>
+  <div class="script-steps">
+    <div class="script-step">
+      <div class="step-num">1</div>
+      <div class="step-text">Ask: <strong>"Are you coming in with an injury, pain, or a rehab goal?"</strong> → EP stream ($159 assessment)</div>
+    </div>
+    <div class="script-step">
+      <div class="step-num">2</div>
+      <div class="step-text">If general training or performance goals → <strong>Coach stream ($129 assessment)</strong></div>
+    </div>
+    <div class="script-step">
+      <div class="step-num">3</div>
+      <div class="step-text">Explain: <strong>their program is built in that first session</strong> — they leave with everything they need.</div>
+    </div>
+    <div class="script-step">
+      <div class="step-num">4</div>
+      <div class="step-text">Mention: <strong>1 SPT session per week + homework exercises</strong> included. Optional multi-day splits available.</div>
+    </div>
+    <div class="script-step">
+      <div class="step-num">5</div>
+      <div class="step-text">Reviews are <strong>required to keep the program current</strong> — built into their journey from the start.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="footer">
+  <div class="footer-brand">GHETTO MOVEMENT</div>
+  <div class="footer-meta">ghettomovement.com &nbsp;·&nbsp; @ghettomovement &nbsp;·&nbsp; 38 Princes Highway, Fairy Meadow &nbsp;·&nbsp; 0423 473 891</div>
+</div>
+
+</body>
+</html>
