@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ghetto Movement — Staff Hub</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple: #8c52ff;
+    --purple-faint: rgba(140,82,255,0.08);
+    --purple-mid: rgba(140,82,255,0.15);
+    --border-purple: rgba(140,82,255,0.3);
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #181818;
+    --surface3: #222222;
+    --border: rgba(255,255,255,0.07);
+    --text: #ffffff;
+    --text-muted: #777777;
+    --text-dim: #444444;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .topbar-brand {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--purple);
+  }
+  .topbar-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .topbar-nav {
+    display: flex;
+    gap: 28px;
+  }
+  .topbar-nav a {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.15s;
+  }
+  .topbar-nav a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 80px 40px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 64px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  .hero h1 span { color: var(--purple); }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 540px;
+    line-height: 1.6;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hero-stat-num {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--purple);
+  }
+  .hero-stat-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+  }
+
+  /* ── CATEGORY SECTION ── */
+  .category { margin-bottom: 56px; }
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .category-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--purple-faint);
+    border: 1px solid var(--border-purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .category-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .category-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+
+  /* ── DOC GRID ── */
+  .doc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  /* ── DOC CARD ── */
+  .doc-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.15s, background 0.15s, transform 0.15s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--purple);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .doc-card:hover {
+    border-color: var(--border-purple);
+    background: var(--surface2);
+    transform: translateY(-2px);
+  }
+  .doc-card:hover::before { opacity: 1; }
+
+  .doc-card.coming-soon {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .doc-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .doc-type {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--purple-faint);
+    color: var(--purple);
+    border: 1px solid var(--border-purple);
+    flex-shrink: 0;
+  }
+  .doc-type.teal {
+    background: rgba(46,196,160,0.08);
+    color: #2ec4a0;
+    border-color: rgba(46,196,160,0.25);
+  }
+  .doc-type.violet {
+    background: rgba(155,127,232,0.08);
+    color: #9b7fe8;
+    border-color: rgba(155,127,232,0.25);
+  }
+  .doc-type.gray {
+    background: rgba(255,255,255,0.04);
+    color: var(--text-muted);
+    border-color: var(--border);
+  }
+  .doc-arrow {
+    color: var(--text-dim);
+    font-size: 16px;
+    transition: color 0.15s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  .doc-card:hover .doc-arrow {
+    color: var(--purple);
+    transform: translateX(2px);
+  }
+  .doc-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .doc-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .doc-meta {
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .doc-meta-item {
+    font-size: 11px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .coming-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: transparent;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 0 56px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    max-width: 100%;
+  }
+  .footer-brand {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--purple);
+    letter-spacing: 0.08em;
+  }
+  .footer-meta {
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 40px; }
+    .topbar { padding: 0 20px; }
+    .topbar-nav { display: none; }
+    .hero, .main { padding-left: 20px; padding-right: 20px; }
+    .doc-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── TOPBAR ── -->
+<div class="topbar">
+  <div class="topbar-brand">Ghetto Movement</div>
+  <div class="topbar-label">Staff Hub</div>
+  <nav class="topbar-nav">
+    <a href="#focus-spt">Focus SPT</a>
+    <a href="#operations">Operations</a>
+    <a href="#coaching">Coaching</a>
+    <a href="#ep">Exercise Physiology</a>
+  </nav>
+</div>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-eyebrow">Internal · Staff only</div>
+  <h1>The <span>Brain.</span></h1>
+  <p class="hero-sub">Everything you need to run Ghetto Movement the right way. Processes, programs, guides, and standards — all in one place.</p>
+  <div class="hero-meta">
+    <div class="hero-stat">
+      <div class="hero-stat-num">2</div>
+      <div class="hero-stat-label">Docs live</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4</div>
+      <div class="hero-stat-label">Categories</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">38</div>
+      <div class="hero-stat-label">Princes Hwy</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+  <!-- FOCUS SPT -->
+  <div class="category" id="focus-spt">
+    <div class="category-header">
+      <div class="category-icon">🎯</div>
+      <div>
+        <div class="category-title">Focus SPT</div>
+        <div class="category-desc">Semi-private training — client journey, pricing, and front desk processes</div>
+      </div>
+    </div>
+    <div class="doc-grid">
+
+      <a href="Focus_SPT_Front_Desk.html" class="doc-card">
+        <div class="doc-card-top">
+          <span class="doc-type">Front Desk</span>
+          <span class="doc-arrow">→</span>
+        </div>
+        <div class="doc-name">Focus SPT — Front Desk Guide</div>
+        <div class="doc-desc">Pricing, streams, session vs review breakdown, and the quick script for handling new enquiries.</div>
+        <div class="doc-meta">
+          <span class="doc-meta-item">📄 Reference</span>
+          <span class="doc-meta-item">· Rehab &amp; non-rehab</span>
+        </div>
+      </a>
+
+      <a href="Focus_SPT_Staff_Journey.html" class="doc-card">
+        <div class="doc-card-top">
+          <span class="doc-type violet">Staff Journey</span>
+          <span class="doc-arrow">→</span>
+        </div>
+        <div class="doc-name">Focus SPT — Client Journey</div>
+        <div class="doc-desc">Full visual flow of the client lifecycle from enquiry through assessment, sessions, and reviews.</div>
+        <div class="doc-meta">
+          <span class="doc-meta-item">🗺 Flow diagram</span>
+          <span class="doc-meta-item">· All phases</span>
+        </div>
+      </a>
+
+      <div class="doc-card coming-soon">
+        <div class="doc-card-top">
+          <span class="doc-type teal">EP Protocol</span>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+        <div class="doc-name">EP Assessment Protocol</div>
+        <div class="doc-desc">Standard process for running EP intake sessions and writing rehab programs.</div>
+        <div class="doc-meta">
+          <span class="doc-meta-item">📋 Protocol</span>
+        </div>
+      </div>
+
+      <div class="doc-card coming-soon">
+        <div class="doc-card-top">
+          <span class="doc-type gray">Coach Guide</span>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+        <div class="doc-name">Coach Assessment Guide</div>
+        <div class="doc-desc">How to run the non-rehab intake, build programs, and conduct reviews.</div>
+        <div class="doc-meta">
+          <span class="doc-meta-item">📋 Protocol</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- OPERATIONS -->
+  <div class="category" id="operations">
+    <div class="category-header">
+      <div class="category-icon">⚙️</div>
+      <div>
+        <div class="category-title">Operations</div>
+        <div class="category-desc">Day-to-day running of the gym — open/close, bookings, and admin</div>
+      </div>
+    </div>
+    <div class="doc-grid">
+
+      <div class="doc-card coming-soon">
+        <div class="doc-card-top">
+          <span class="doc-type gray">Ops</span>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+        <div class="doc-name">Open &amp; Close Checklist</div>
+        <div class="doc-desc">Step-by-step daily open and close procedures for all staff.</div>
+        <div class="doc-meta"><span class="doc-meta-item">✅ Checklist</span></div>
+      </div>
+
+      <div class="doc-card coming-soon">
+        <div class="doc-card-top">
+          <span class="doc-type gray">Ops</span>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+        <div class="doc-name">Booking &amp; Cancellation Policy</div>
+        <div class="doc-desc">How to handle bookings, late cancellations, and no-shows.</div>
+        <div class="doc-meta"><span class="doc-meta-item">📋 Policy</span></div>
+      </div>
+
+      <div class="doc-card coming-soon">
+        <div class="doc-card-top">
+          <span class="doc-type gray">Ops</span>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+        <div class="doc-name">New Member Onboarding</div>
+        <div class="doc-desc">Process for welcoming new members and getting them set up correctly.</div>
+        <div class="doc-meta"><span class="doc-meta-item">🤝 Process</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- COACHING -->
+  <div class="category" id="coaching">
+    <div class="category-header">
+      <div class="category-icon">💪</div>
+      <div>
+        <div class="category-title">Coaching</div>
+        <div class="category-desc">Standards, cues, and expectations for all coaches on the floor</div>
+      </div>
+    </div>
+    <div class="doc-grid">
+
+      <div class="doc-card coming-soon">
+        <div class="doc-card-top">
+          <span class="doc-type gray">Standards</span>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+        <div class="doc-name">Coaching Standards</div>
+        <div class="doc-desc">What's expected of every coach — floor presence, cueing, client interactions.</div>
+        <div class="doc-meta"><span class="doc-meta-item">📋 Standards</span></div>
+      </div>
+
+      <div class="doc-card coming-soon">
+        <div class="doc-card-top">
+          <span class="doc-type gray">Guide</span>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+        <div class="doc-name">Movement Cue Library</div>
+        <div class="doc-desc">Preferred cues for key movements used across all GM programs.</div>
+        <div class="doc-meta"><span class="doc-meta-item">📚 Reference</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- EXERCISE PHYSIOLOGY -->
+  <div class="category" id="ep">
+    <div class="category-header">
+      <div class="category-icon">🩺</div>
+      <div>
+        <div class="category-title">Exercise Physiology</div>
+        <div class="category-desc">Clinical protocols, referral pathways, and EP-specific processes</div>
+      </div>
+    </div>
+    <div class="doc-grid">
+
+      <div class="doc-card coming-soon">
+        <div class="doc-card-top">
+          <span class="doc-type teal">Clinical</span>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+        <div class="doc-name">Referral Pathway Guide</div>
+        <div class="doc-desc">How to handle GP, specialist, NDIS, and DVA referrals.</div>
+        <div class="doc-meta"><span class="doc-meta-item">📋 Protocol</span></div>
+      </div>
+
+      <div class="doc-card coming-soon">
+        <div class="doc-card-top">
+          <span class="doc-type teal">Clinical</span>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+        <div class="doc-name">Rehab Clearance Protocol</div>
+        <div class="doc-desc">Process for transitioning clients from the EP stream into non-rehab Focus SPT.</div>
+        <div class="doc-meta"><span class="doc-meta-item">📋 Protocol</span></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="footer">
+  <div class="footer-brand">GHETTO MOVEMENT</div>
+  <div class="footer-meta">ghettomovement.com &nbsp;·&nbsp; 38 Princes Highway, Fairy Meadow &nbsp;·&nbsp; Internal use only</div>
+</div>
+
+</body>
+</html>
