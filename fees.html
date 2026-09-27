@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fees &amp; Appointment Types — Ghetto Movement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#8c52ff;
+    --purple-tint:#f4efff;
+    --purple-line:#e3d7ff;
+    --ink:#1a1523;
+    --body:#3a3446;
+    --muted:#8b8496;
+    --paper:#ffffff;
+    --line:#ece8f2;
+    --good:#1f9d6b;
+    --good-tint:#e8f7f0;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    margin:0;
+    background:#f6f4fb;
+    color:var(--body);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    line-height:1.6;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:860px;
+    margin:0 auto;
+    background:var(--paper);
+    min-height:100vh;
+  }
+  .wrap{padding:clamp(24px,5vw,56px);}
+
+  /* Header */
+  header.masthead{
+    background:var(--ink);
+    color:#fff;
+    padding:clamp(28px,5vw,44px) clamp(24px,5vw,56px);
+  }
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:11px;
+    color:var(--purple);
+    margin:0 0 14px;
+    font-weight:700;
+  }
+  h1{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    font-size:clamp(34px,7vw,58px);
+    line-height:.98;
+    letter-spacing:.01em;
+    text-transform:uppercase;
+    margin:0 0 14px;
+    color:#fff;
+  }
+  h1 .accent{color:var(--purple);}
+  .lede{
+    color:#c9c3d6;
+    font-size:15px;
+    max-width:56ch;
+    margin:0;
+  }
+  .meta-strip{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 22px;
+    margin-top:22px;
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    color:#8f8aa0;
+    text-transform:uppercase;
+  }
+  .meta-strip b{color:#fff;font-weight:400;}
+
+  /* Section */
+  section{margin-bottom:44px;}
+  .sec-label{
+    font-family:'Space Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:11px;
+    color:var(--purple);
+    font-weight:700;
+    margin:0 0 6px;
+  }
+  h2{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    font-size:clamp(24px,4.5vw,34px);
+    text-transform:uppercase;
+    letter-spacing:.01em;
+    color:var(--ink);
+    margin:0 0 8px;
+    line-height:1.05;
+  }
+  .sec-intro{margin:0 0 26px;color:var(--body);max-width:64ch;}
+
+  /* Stream card */
+  .stream{
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+    margin-bottom:22px;
+    background:#fff;
+  }
+  .stream-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+    flex-wrap:wrap;
+    padding:18px 22px;
+    background:var(--purple-tint);
+    border-bottom:1px solid var(--purple-line);
+  }
+  .stream-name{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    font-size:22px;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    color:var(--ink);
+    margin:0;
+  }
+  .stream-code{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:.05em;
+    color:var(--purple);
+    text-transform:uppercase;
+  }
+  .badge{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    padding:4px 10px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .badge.no-gap{background:var(--good-tint);color:var(--good);}
+  .badge.gap{background:#fff0e8;color:#d2691e;}
+  .badge.direct{background:var(--purple-tint);color:var(--purple);}
+
+  .heuristic{
+    margin:18px 0 0;
+    padding:14px 18px;
+    background:var(--ink);
+    color:#fff;
+    border-radius:10px;
+    font-size:14px;
+  }
+  .heuristic b{color:#fff;}
+  .heuristic .h-label{
+    font-family:'Space Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    font-size:10px;
+    color:var(--purple);
+    font-weight:700;
+    display:block;
+    margin-bottom:6px;
+  }
+  .choose{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
+  .choose .col{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:#fff;}
+  .choose .col.short{border-top:3px solid var(--purple);}
+  .choose .col.long{border-top:3px solid var(--ink);}
+  .choose h4{font-family:'Anton',sans-serif;font-weight:400;font-size:18px;text-transform:uppercase;letter-spacing:.02em;margin:0 0 2px;color:var(--ink);}
+  .choose .dur{font-family:'Space Mono',monospace;font-size:11px;color:var(--purple);margin:0 0 12px;text-transform:uppercase;letter-spacing:.05em;}
+  .choose ul{margin:0;padding-left:16px;font-size:13.5px;}
+  .choose li{margin-bottom:7px;}
+  @media(max-width:560px){.choose{grid-template-columns:1fr;}}
+
+  .pos{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px;}
+  .pos .col{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:#fff;}
+  .pos .col.rebate{border-top:3px solid var(--purple);}
+  .pos .col.sale{border-top:3px solid var(--ink);}
+  .pos h4{font-family:'Anton',sans-serif;font-weight:400;font-size:18px;text-transform:uppercase;letter-spacing:.02em;margin:0 0 2px;color:var(--ink);}
+  .pos .sub{font-family:'Space Mono',monospace;font-size:11px;color:var(--purple);margin:0 0 12px;text-transform:uppercase;letter-spacing:.05em;}
+  .pos ol{margin:0;padding-left:18px;font-size:13.5px;color:var(--body);}
+  .pos li{margin-bottom:8px;}
+  .pos li:last-child{margin-bottom:0;}
+  @media(max-width:560px){.pos{grid-template-columns:1fr;}}
+
+  .stream-body{padding:6px 22px 20px;}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0 0;font-size:14.5px;}
+  .tbl-scroll{overflow-x:auto;}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{
+    font-family:'Space Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:700;
+    border-bottom:1.5px solid var(--line);
+  }
+  td .num{
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    color:var(--ink);
+  }
+  td .num.big{color:var(--purple);font-size:15.5px;}
+  tr:last-child td{border-bottom:none;}
+
+  .notes{
+    margin:16px 0 0;
+    padding:14px 16px;
+    background:#faf9fc;
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-size:13.5px;
+    color:var(--body);
+  }
+  .notes .n-label{
+    font-family:'Space Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    font-size:10px;
+    color:var(--muted);
+    font-weight:700;
+    display:block;
+    margin-bottom:8px;
+  }
+  .notes ul{margin:0;padding-left:18px;}
+  .notes li{margin-bottom:5px;}
+  .notes li:last-child{margin-bottom:0;}
+
+  .verify{
+    font-family:'Space Mono',monospace;
+    font-size:10px;
+    letter-spacing:.04em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-top:2px;
+  }
+
+  footer.doc-foot{
+    border-top:1px solid var(--line);
+    padding:22px clamp(24px,5vw,56px) 40px;
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:.05em;
+    color:var(--muted);
+    text-transform:uppercase;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  @media(max-width:560px){
+    .stream-head{gap:8px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <p class="eyebrow">Ghetto Movement · Staff Onboarding</p>
+    <h1>Fees &amp;<br><span class="accent">Appointment Types</span></h1>
+    <p class="lede">The reference for how clinical EP appointments are structured, funded and billed. Start here before booking, invoicing or setting up a client in Acuity.</p>
+    <div class="meta-strip">
+      <span>For <b>EP Onboarding</b></span>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <section>
+      <p class="sec-label">Section 01</p>
+      <h2>Funding &amp; Payment</h2>
+      <p class="sec-intro">Ghetto Movement delivers clinical EP across several funded streams plus private self-pay. Each stream sets its own appointment durations. The number that matters to you at the session is the <b>Collect from client</b> column — how much payment to take before they leave.</p>
+
+      <div class="heuristic" style="margin-bottom:26px;">
+        <span class="h-label">The one thing to check</span>
+        Before a client leaves, find their stream below and take the <b>Collect from client</b> amount. If it reads <b>$0.00</b>, there's nothing to take — it's billed for them. Rebates, claiming and plan billing are all handled in the back office, not by you at the desk.
+      </div>
+
+      <!-- SELF PAY -->
+      <div class="stream">
+        <div class="stream-head">
+          <div>
+            <p class="stream-name">Self-pay (Private)</p>
+            <span class="stream-code">No referral required · Anchor rate</span>
+          </div>
+          <span class="badge direct">Pay on the day</span>
+        </div>
+        <div class="stream-body">
+          <div class="tbl-scroll">
+          <table>
+            <tr><th>Appointment</th><th>Duration</th><th>Collect from client</th></tr>
+            <tr>
+              <td>Initial assessment</td>
+              <td><span class="num">60 min</span></td>
+              <td><span class="num big">$159.00</span></td>
+            </tr>
+            <tr>
+              <td>Follow-up — short</td>
+              <td><span class="num">30 min</span></td>
+              <td><span class="num big">$100.00</span></td>
+            </tr>
+            <tr>
+              <td>Follow-up — long</td>
+              <td><span class="num">45 min</span></td>
+              <td><span class="num big">$120.00</span></td>
+            </tr>
+          </table>
+          </div>
+
+          <div class="heuristic">
+            <span class="h-label">Rule of thumb</span>
+            Default to the <b>short (30 min)</b> follow-up for routine progression. Book the <b>long (45 min)</b> whenever the session involves <b>reassessment, reprogramming, or added complexity</b> — anything more than delivering and progressing an existing program.
+          </div>
+
+          <div class="choose">
+            <div class="col short">
+              <h4>Short follow-up</h4>
+              <p class="dur">30 min · $100 · the default</p>
+              <ul>
+                <li>Established client on a stable program — progress load, tidy technique, keep momentum.</li>
+                <li>Single area or single goal; a straightforward run-through.</li>
+                <li>Client is confident and independent with their exercises.</li>
+                <li>Routine check-in between the bigger review points.</li>
+                <li>Maintenance-phase client who just needs accountability and small tweaks.</li>
+              </ul>
+            </div>
+            <div class="col long">
+              <h4>Long follow-up</h4>
+              <p class="dur">45 min · $120 · when it's more than delivery</p>
+              <ul>
+                <li>Re-testing / objective reassessment (strength, ROM, movement screen).</li>
+                <li>Writing a new program block or shifting training phase.</li>
+                <li>New or complex presentation — multiple areas, comorbidities, or a recent flare / setback.</li>
+                <li>Teaching several new movements or a significant technique rebuild.</li>
+                <li>First session back after a break or a run of missed sessions.</li>
+                <li>Need review time to prep a progress update, report, or GP letter.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="notes">
+            <span class="n-label">Notes</span>
+            <ul>
+              <li>Full fee is paid at time of service — no referral or funding required.</li>
+              <li>If the client has private health <b>extras</b>, run their card through <b>HICAPS</b> at reception — the rebate is applied on the spot, so they pay only their gap. No extras (or no eligible cover): collect the full fee shown above.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- MEDICARE -->
+      <div class="stream">
+        <div class="stream-head">
+          <div>
+            <p class="stream-name">Medicare (CDM)</p>
+            <span class="stream-code">MBS Item 10953</span>
+          </div>
+          <span class="badge gap">Gap — collect from client</span>
+        </div>
+        <div class="stream-body">
+          <div class="tbl-scroll">
+          <table>
+            <tr><th>Appointment</th><th>Duration</th><th>Collect from client</th></tr>
+            <tr>
+              <td>Initial consult</td>
+              <td><span class="num">45 min</span></td>
+              <td><span class="num big">$56.60</span></td>
+            </tr>
+            <tr>
+              <td>Follow-up consult</td>
+              <td><span class="num">30 min</span></td>
+              <td><span class="num big">$46.60</span></td>
+            </tr>
+          </table>
+          </div>
+
+          <div class="notes">
+            <span class="n-label">Notes</span>
+            <ul>
+              <li>Collect the gap shown at the session — that's the client's only out-of-pocket. The Medicare rebate is claimed on their behalf.</li>
+              <li>Requires a GP referral under a Chronic Disease Management plan (simplified to a referral letter from July 2025).</li>
+              <li>Capped at <b>5 individual allied-health sessions per calendar year</b>, shared across all allied health the client uses.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- SILVERCHAIN -->
+      <div class="stream">
+        <div class="stream-head">
+          <div>
+            <p class="stream-name">Silverchain</p>
+            <span class="stream-code">Healthy Hearts Initiative · 3 referred sessions</span>
+          </div>
+          <span class="badge no-gap">Nothing to collect</span>
+        </div>
+        <div class="stream-body">
+          <div class="tbl-scroll">
+          <table>
+            <tr><th>Appointment</th><th>Duration</th><th>Collect from client</th></tr>
+            <tr>
+              <td>Initial consult</td>
+              <td><span class="num">45 min</span></td>
+              <td><span class="num big">$0.00</span></td>
+            </tr>
+            <tr>
+              <td>Follow-up consult</td>
+              <td><span class="num">30 min</span></td>
+              <td><span class="num big">$0.00</span></td>
+            </tr>
+          </table>
+          </div>
+          <div class="notes">
+            <span class="n-label">Notes</span>
+            <ul>
+              <li>Runs like Medicare but with <b>no gap</b> — fully covered under the Healthy Hearts Initiative, so nothing is collected at the session.</li>
+              <li>Clients are referred for <b>3 sessions</b>.</li>
+              <li>Requires a GP referral.</li>
+              <li>Consult flow follows the Medicare process — see the Consult SOP.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- DVA -->
+      <div class="stream">
+        <div class="stream-head">
+          <div>
+            <p class="stream-name">DVA</p>
+            <span class="stream-code">Items EP10 (initial) · EP11 (follow-up)</span>
+          </div>
+          <span class="badge no-gap">Nothing to collect</span>
+        </div>
+        <div class="stream-body">
+          <div class="tbl-scroll">
+          <table>
+            <tr><th>Appointment</th><th>Item</th><th>Duration</th><th>Collect from client</th></tr>
+            <tr>
+              <td>Initial consult</td>
+              <td><span class="num">EP10</span></td>
+              <td><span class="num">45 min</span></td>
+              <td><span class="num big">$0.00</span></td>
+            </tr>
+            <tr>
+              <td>Follow-up consult</td>
+              <td><span class="num">EP11</span></td>
+              <td><span class="num">30 min</span></td>
+              <td><span class="num big">$0.00</span></td>
+            </tr>
+          </table>
+          </div>
+          <div class="notes">
+            <span class="n-label">Notes</span>
+            <ul>
+              <li>Fully covered by DVA — the veteran has <b>no out-of-pocket cost</b>, so nothing is collected at the session.</li>
+              <li>Requires a valid GP referral (D904) for the treatment cycle.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RSL -->
+      <div class="stream">
+        <div class="stream-head">
+          <div>
+            <p class="stream-name">RSL</p>
+            <span class="stream-code">No item codes · No referral required</span>
+          </div>
+          <span class="badge no-gap">Nothing to collect</span>
+        </div>
+        <div class="stream-body">
+          <div class="tbl-scroll">
+          <table>
+            <tr><th>Appointment</th><th>Duration</th><th>Collect from client</th></tr>
+            <tr>
+              <td>Initial consult</td>
+              <td><span class="num">45 min</span></td>
+              <td><span class="num big">$0.00</span></td>
+            </tr>
+            <tr>
+              <td>Follow-up consult</td>
+              <td><span class="num">30 min</span></td>
+              <td><span class="num big">$0.00</span></td>
+            </tr>
+          </table>
+          </div>
+          <div class="notes">
+            <span class="n-label">Notes</span>
+            <ul>
+              <li>Fully covered by RSL — the veteran has <b>no out-of-pocket cost</b>, so nothing is collected at the session.</li>
+              <li>No referral required, though we may receive one. <b>The client's RSL sub-branch card / location is required</b> to proceed with ongoing services.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- NDIS -->
+      <div class="stream">
+        <div class="stream-head">
+          <div>
+            <p class="stream-name">NDIS</p>
+            <span class="stream-code">Item 15_200_0126_1_3 — Exercise Physiologist</span>
+          </div>
+          <span class="badge no-gap">Nothing to collect</span>
+        </div>
+        <div class="stream-body">
+          <div class="tbl-scroll">
+          <table>
+            <tr><th>Session length</th><th>Collect from client</th></tr>
+            <tr><td><span class="num">30 min</span></td><td><span class="num big">$0.00</span></td></tr>
+            <tr><td><span class="num">45 min</span></td><td><span class="num big">$0.00</span></td></tr>
+            <tr><td><span class="num">60 min</span></td><td><span class="num big">$0.00</span></td></tr>
+          </table>
+          </div>
+          <div class="notes">
+            <span class="n-label">Notes</span>
+            <ul>
+              <li>Billed directly to the client's NDIS plan — <b>nothing collected at the session</b> for any session length.</li>
+              <li>Report writing and other non-face-to-face supports are separately claimable where the plan allows.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <p class="sec-label">Section 02</p>
+      <h2>Taking Payment — POS</h2>
+      <p class="sec-intro">Once you know the amount to collect, this is how to run it on the reception POS machine.</p>
+
+      <div class="pos">
+        <div class="col rebate">
+          <h4>Private health rebate</h4>
+          <p class="sub">HICAPS · client has extras</p>
+          <ol>
+            <li>Scan / tap the client's private health care card first.</li>
+            <li>Select the appointment type and check the fee.</li>
+            <li>Follow the prompts on the machine.</li>
+            <li>The client pays the <b>gap fee</b> last.</li>
+          </ol>
+        </div>
+        <div class="col sale">
+          <h4>No private health rebate</h4>
+          <p class="sub">Self-pay full fee · Medicare gap</p>
+          <ol>
+            <li>Select <b>'Sale'</b> and enter the amount to collect.</li>
+            <li>The client pays it in full.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="notes" style="margin-top:18px;">
+        <span class="n-label">Which amount</span>
+        <ul>
+          <li>The amount to enter is the <b>Collect from client</b> figure on the stream card above — the full fee for self-pay, or the gap for Medicare.</li>
+          <li>Streams showing <b>$0.00</b> are billed for the client — nothing to run on the machine.</li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="doc-foot">
+    <span>Ghetto Movement · 38 Princes Hwy, Fairy Meadow NSW</span>
+    <span>Internal</span>
+  </footer>
+
+</div>
+</body>
+</html>

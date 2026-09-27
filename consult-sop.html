@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Consult SOP — Ghetto Movement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#8c52ff;
+    --purple-tint:#f4efff;
+    --purple-line:#e3d7ff;
+    --ink:#1a1523;
+    --body:#3a3446;
+    --muted:#8b8496;
+    --paper:#ffffff;
+    --line:#ece8f2;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{
+    margin:0;
+    background:#f6f4fb;
+    color:var(--body);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    line-height:1.6;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:860px;margin:0 auto;background:var(--paper);min-height:100vh;}
+  .wrap{padding:clamp(24px,5vw,56px);}
+
+  header.masthead{
+    background:var(--ink);
+    color:#fff;
+    padding:clamp(28px,5vw,44px) clamp(24px,5vw,56px);
+  }
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:11px;
+    color:var(--purple);
+    margin:0 0 14px;
+    font-weight:700;
+  }
+  h1{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    font-size:clamp(34px,7vw,58px);
+    line-height:.98;
+    letter-spacing:.01em;
+    text-transform:uppercase;
+    margin:0 0 14px;
+    color:#fff;
+  }
+  h1 .accent{color:var(--purple);}
+  .lede{color:#c9c3d6;font-size:15px;max-width:56ch;margin:0;}
+  .meta-strip{
+    display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;
+    font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;
+    color:#8f8aa0;text-transform:uppercase;
+  }
+  .meta-strip b{color:#fff;font-weight:400;}
+
+  .xref{
+    font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.04em;
+    text-transform:uppercase;color:var(--muted);
+    margin:0 0 34px;padding:12px 16px;border:1px dashed var(--purple-line);
+    border-radius:10px;background:#fbfaff;
+  }
+  .xref b{color:var(--purple);}
+
+  section{margin-bottom:14px;}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap;}
+  .sec-num{
+    font-family:'Space Mono',monospace;font-size:11px;font-weight:700;
+    letter-spacing:.1em;color:var(--purple);text-transform:uppercase;
+  }
+  h2{
+    font-family:'Anton',sans-serif;font-weight:400;
+    font-size:clamp(24px,4.5vw,34px);text-transform:uppercase;letter-spacing:.01em;
+    color:var(--ink);margin:0;line-height:1.05;
+  }
+  .sec-intro{margin:0 0 16px;color:var(--body);max-width:64ch;}
+
+  .stage{
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    margin-bottom:26px;background:#fff;
+  }
+  .stage.done{border-color:var(--purple-line);}
+  .stage-body{padding:18px 22px 20px;}
+
+  .flow{margin:0 0 4px;}
+  .flow + .flow{margin-top:18px;}
+  .flow .n-label{
+    font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.1em;
+    font-size:10px;color:var(--purple);font-weight:700;display:block;margin-bottom:10px;
+  }
+  .flow ol{margin:0;padding-left:20px;font-size:14.5px;color:var(--body);}
+  .flow li{margin-bottom:9px;}
+  .flow li:last-child{margin-bottom:0;}
+  .flow li b{color:var(--ink);}
+  .flow ul{margin:0;padding-left:20px;font-size:14.5px;color:var(--body);}
+  .flow .grp{margin-top:16px;}
+  .flow .grp h5{font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);font-weight:700;margin:0 0 7px;}
+  .flow .grp ol,.flow .grp ul{font-size:14px;}
+  .flow .grp li{margin-bottom:7px;}
+  .dur-note{font-size:13px;color:var(--body);margin:0 0 16px;padding:11px 15px;background:#faf9fc;border:1px solid var(--line);border-radius:8px;line-height:1.5;}
+  .dur-note b{color:var(--ink);}
+  .aside{margin:14px 0 4px;padding:10px 14px;background:var(--purple-tint);border:1px solid var(--purple-line);border-radius:8px;font-size:12.5px;color:var(--ink);}
+  .aside b{color:var(--purple);}
+  table{width:100%;border-collapse:collapse;margin:14px 0 0;font-size:14px;}
+  .tbl-scroll{overflow-x:auto;}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1.5px solid var(--line);}
+  tr:last-child td{border-bottom:none;}
+  td b{color:var(--ink);}
+
+  .tag{
+    display:inline-block;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.05em;color:var(--purple);
+    background:var(--purple-tint);border-radius:5px;padding:1px 7px;margin-left:2px;
+  }
+  .confirm{
+    font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.03em;
+    color:var(--muted);text-transform:uppercase;
+  }
+
+  .stub{
+    padding:16px 20px;border:1px dashed var(--purple-line);border-radius:10px;
+    background:#fbfaff;
+  }
+  .stub .n-label{
+    font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.1em;
+    font-size:10px;color:var(--muted);font-weight:700;display:block;margin-bottom:8px;
+  }
+  .stub ul{margin:0;padding-left:18px;font-size:13.5px;}
+  .stub li{margin-bottom:6px;}
+  .stub li:last-child{margin-bottom:0;}
+
+  footer.doc-foot{
+    border-top:1px solid var(--line);padding:22px clamp(24px,5vw,56px) 40px;
+    font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.05em;
+    color:var(--muted);text-transform:uppercase;display:flex;justify-content:space-between;
+    flex-wrap:wrap;gap:8px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <p class="eyebrow">Ghetto Movement · Staff Onboarding</p>
+    <h1>Consult<br><span class="accent">SOP</span></h1>
+    <p class="lede">How we run each stage of the client journey — what happens in the session, and the actions to complete after it. One place for the process, so every EP runs consults the same way.</p>
+    <div class="meta-strip">
+      <span>For <b>EP Onboarding</b></span>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <p class="xref">Companion doc → <b>Fees &amp; Appointment Types</b> cheat sheet. This SOP covers the <b>process</b>; the fees sheet covers <b>what to collect</b>.</p>
+
+    <!-- INITIAL -->
+    <section>
+      <div class="sec-head">
+        <span class="sec-num">Stage 01</span>
+        <h2>Initial Consult</h2>
+      </div>
+      <p class="sec-intro">The first appointment — assessment, goal-setting, and getting the client moving before they leave.</p>
+
+      <div class="stage done">
+        <div class="stage-body">
+          <p class="dur-note"><b>Initial duration —</b> 45 min for Medicare, DVA, RSL &amp; Silverchain; <b>60 min</b> for private-pay &amp; NDIS. The extra 15 minutes on a 60-min initial goes to deeper work — more in-depth VALD testing, optimising load intensities, or further assessment — which is why those two run longer than the rest.</p>
+
+          <div class="flow">
+            <span class="n-label">In the session</span>
+
+            <div class="grp">
+              <h5>1 · Set up the account</h5>
+              <ul>
+                <li>Capture the general and rebate/billing details needed to open the client's account and bill correctly — e.g. RSL sub-branch card &amp; location, DVA veteran status, Medicare / referral details.</li>
+              </ul>
+            </div>
+
+            <div class="grp">
+              <h5>2 · History</h5>
+              <ul>
+                <li>Injury / condition history.</li>
+                <li>Red-flag screening.</li>
+                <li>Training history.</li>
+              </ul>
+            </div>
+
+            <div class="grp">
+              <h5>3 · Objective testing battery <span style="font-weight:400;color:var(--muted);">— in this order</span></h5>
+              <ol>
+                <li>Active &amp; passive ROM.</li>
+                <li>Manual muscle testing.</li>
+                <li>Movement screening.</li>
+                <li>VALD testing (ForceDecks / DynaMo).</li>
+              </ol>
+            </div>
+
+            <div class="grp">
+              <h5>4 · Feedback &amp; plan</h5>
+              <ol>
+                <li>Relay the findings — results, norms, what the testing showed.</li>
+                <li>Explain your view — your clinical read of what's going on.</li>
+                <li>Set goals together.</li>
+                <li>Agree next steps — what next week's session involves, and what they need to do before then.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="flow">
+            <span class="n-label">After the session</span>
+            <ol>
+              <li><b>Book the follow-up</b> for the following week — that session is where you cover their exercise prescription in detail.</li>
+              <li><b>Send the VALD program within 24 hours.</b> Tell the client to get started straight away, and that you'll walk through it together in more detail at the next session.</li>
+              <li><b>Send the GP letter</b> to the referring GP. <span class="tag">DVA · Medicare · Private (if GP referred) · Silverchain</span></li>
+            </ol>
+            <p style="font-size:12px;color:var(--muted);margin:10px 0 0;"><b style="color:var(--ink);">NDIS</b> — no GP letter; communication is done through progress reports, completed when prompted. Applies at every stage.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOLLOW-UP -->
+    <section>
+      <div class="sec-head">
+        <span class="sec-num">Stage 02</span>
+        <h2>Follow-up Consult</h2>
+      </div>
+      <p class="sec-intro">The first follow-up in detail, plus how to set session length and cadence for those that follow — routine sessions then run on your clinical judgment.</p>
+      <div class="stage done">
+        <div class="stage-body">
+          <div class="flow">
+            <span class="n-label">First follow-up</span>
+            <ol>
+              <li>Walk through the VALD program together.</li>
+              <li>Confirm technique.</li>
+              <li>Set expectations &amp; correct intensities.</li>
+              <li>Reconfirm the <b>why</b> through education.</li>
+              <li>Relay information from their assessment where needed.</li>
+              <li><b>Book them in for their next follow-up.</b> Session length can vary on your clinical call, see below — adjust the fee to match (see the Fees sheet).</li>
+            </ol>
+          </div>
+
+          <div class="flow">
+            <span class="n-label">Choosing session length</span>
+            <div class="tbl-scroll">
+            <table>
+              <tr><th>Session</th><th>Book when</th></tr>
+              <tr>
+                <td><b>Short · 30 min</b></td>
+                <td>Routine progression — stable program, one area, a confident and independent client, a check-in between the bigger review points.</td>
+              </tr>
+              <tr>
+                <td><b>Long · 45 min</b></td>
+                <td>A heavier-than-routine follow-up — a flare or setback, teaching several new movements, or a first session back. (Formal re-tests &amp; reprogramming are a reassessment — see Stage 03.)</td>
+              </tr>
+            </table>
+            </div>
+            <p style="font-size:12px;color:var(--muted);margin:10px 0 0;"><b style="color:var(--ink);">NDIS</b> follow-ups can also run 60 min where the client is receptive to a session of that length and it warrants the extra time.</p>
+          </div>
+
+          <div class="flow">
+            <span class="n-label">Follow-up frequency</span>
+            <div class="tbl-scroll">
+            <table>
+              <tr><th>Cadence</th><th>Streams</th><th>Why</th></tr>
+              <tr>
+                <td><b>Weekly</b></td>
+                <td>RSL · DVA · NDIS</td>
+                <td>Keep an ongoing progression &amp; monitoring rhythm.</td>
+              </tr>
+              <tr>
+                <td><b>Fortnightly / monthly</b></td>
+                <td>Medicare · Private · Silverchain</td>
+                <td>Judge by likely adherence to the prescription and their confidence executing it solo.</td>
+              </tr>
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REASSESSMENT -->
+    <section>
+      <div class="sec-head">
+        <span class="sec-num">Stage 03</span>
+        <h2>Reassessment</h2>
+      </div>
+      <p class="sec-intro">Formal re-testing to show progress and re-direct the program.</p>
+      <div class="stage done">
+        <div class="stage-body">
+          <p class="dur-note"><b>When —</b> 8–12 weeks from the previous assessment. A formal re-test and re-direct of the program.</p>
+
+          <div class="flow">
+            <span class="n-label">In the session</span>
+            <ol>
+              <li><b>Re-test with VALD</b> to show improved measures.</li>
+              <li>Check in on their <b>goals and physical capacity</b>.</li>
+              <li><b>Realign the next steps</b> — re-program from the new results (repeating process as done in Stage 01: program design).</li>
+              <li>Book the follow-up for the following week to run through the new program (as per Stage 02).</li>
+            </ol>
+          </div>
+
+          <div class="flow">
+            <span class="n-label">After the session</span>
+            <ol>
+              <li><b>Create a GP letter</b> — after every reassessment. <span class="tag">DVA · Medicare · Private (if GP referred) · Silverchain</span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BETWEEN REASSESSMENTS -->
+    <section>
+      <div class="sec-head">
+        <span class="sec-num">Stage 04</span>
+        <h2>Between Reassessments</h2>
+      </div>
+      <p class="sec-intro">The maintenance loop — keeping the client progressing until their next reassessment falls due.</p>
+      <div class="stage done">
+        <div class="stage-body">
+          <div class="flow">
+            <span class="n-label">Ongoing</span>
+            <ol>
+              <li>Continue follow-up consults at the set frequency (see Stage 02) until the next reassessment.</li>
+              <li>The next reassessment falls due 8–12 weeks on (Stage 03) — then the cycle repeats.</li>
+              <li>At each reassessment, use your <b>clinical reasoning</b> to judge whether the client is ready to be discharged. If they are, that's their final reassessment — proceed to Stage 05.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL / DISCHARGE -->
+    <section>
+      <div class="sec-head">
+        <span class="sec-num">Stage 05</span>
+        <h2>Final Consult / Discharge</h2>
+      </div>
+      <p class="sec-intro">Ending a capped referral cycle with a final consult and discharge — or keeping ongoing-stream clients in care.</p>
+      <div class="stage done">
+        <div class="stage-body">
+
+          <div class="flow">
+            <span class="n-label">When — by stream</span>
+            <div class="tbl-scroll">
+            <table>
+              <tr><th>Stream</th><th>Discharge approach</th></tr>
+              <tr>
+                <td><b>Medicare · Silverchain</b></td>
+                <td>Run a <b>final consult</b> on the last session of the referral cycle — for Silverchain, the 3rd — then discharge (see the paths below).</td>
+              </tr>
+              <tr>
+                <td><b>Private</b></td>
+                <td>No referral cycle — discharge when EP service is <b>no longer clinically necessary</b>. If not already done when they're cleared, direct them into the gym ecosystem.</td>
+              </tr>
+              <tr>
+                <td><b>DVA · RSL · NDIS</b></td>
+                <td>Aim to keep them as <b>ongoing clients</b> — maintain regular reassessment and GP communication rather than discharging.</td>
+              </tr>
+            </table>
+            </div>
+          </div>
+
+          <div class="aside"><b>Discharge test —</b> only discharge once you're certain the client would <b>not</b> keep benefiting from ongoing progression and monitoring.</div>
+
+          <div class="flow">
+            <span class="n-label">On the final consult — direct their next step</span>
+            <ul>
+              <li>Direct them into the <b>gym ecosystem</b>, following the marketing guidelines, or</li>
+              <li><b>Clear them</b> to return to their pre-injury duties.</li>
+            </ul>
+          </div>
+
+          <div class="flow">
+            <span class="n-label">After the final consult</span>
+            <ol>
+              <li><b>Send the GP letter</b> to the referring GP. <span class="tag">DVA · Medicare · Private (if GP referred) · Silverchain</span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="doc-foot">
+    <span>Ghetto Movement · 38 Princes Hwy, Fairy Meadow NSW</span>
+    <span>Internal</span>
+  </footer>
+
+</div>
+</body>
+</html>

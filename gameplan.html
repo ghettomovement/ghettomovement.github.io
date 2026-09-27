@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Onboarding Gameplan — Ghetto Movement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#8c52ff;--purple-tint:#f4efff;--purple-line:#e3d7ff;
+    --ink:#1a1523;--body:#3a3446;--muted:#8b8496;--paper:#ffffff;--line:#ece8f2;
+    box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{margin:0;background:#f6f4fb;color:var(--body);font-family:'Inter',system-ui,-apple-system,sans-serif;line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+  .page{max-width:860px;margin:0 auto;background:var(--paper);min-height:100vh;}
+  .wrap{padding:clamp(24px,5vw,56px);}
+
+  header.masthead{background:var(--ink);color:#fff;padding:clamp(28px,5vw,44px) clamp(24px,5vw,56px);}
+  .eyebrow{font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:var(--purple);margin:0 0 14px;font-weight:700;}
+  h1{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(34px,7vw,58px);line-height:.98;letter-spacing:.01em;text-transform:uppercase;margin:0 0 14px;color:#fff;}
+  h1 .accent{color:var(--purple);}
+  .lede{color:#c9c3d6;font-size:15px;max-width:58ch;margin:0;}
+  .meta-strip{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:#8f8aa0;text-transform:uppercase;}
+  .meta-strip b{color:#fff;font-weight:400;}
+
+  .progress-wrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--line);padding:16px clamp(24px,5vw,56px);}
+  .progress-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px;}
+  .progress-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  .progress-count{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--purple);}
+  .bar{height:8px;background:var(--purple-tint);border-radius:99px;overflow:hidden;}
+  .bar-fill{height:100%;width:0;background:var(--purple);border-radius:99px;transition:width .25s ease;}
+
+  .intro{margin:0 0 30px;color:var(--body);max-width:64ch;}
+
+  section.cat{margin-bottom:28px;}
+  .cat-head{display:flex;align-items:baseline;gap:12px;margin-bottom:12px;flex-wrap:wrap;}
+  .cat-num{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--purple);text-transform:uppercase;}
+  h2{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(20px,4vw,27px);text-transform:uppercase;letter-spacing:.01em;color:var(--ink);margin:0;line-height:1.05;}
+
+  .items{border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+  .item{display:flex;gap:13px;align-items:flex-start;padding:14px 18px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s;}
+  .item:last-child{border-bottom:none;}
+  .item:hover{background:#faf9fc;}
+  .item input{position:absolute;opacity:0;width:0;height:0;}
+  .box{flex:0 0 auto;width:21px;height:21px;border:2px solid var(--purple-line);border-radius:6px;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .12s;}
+  .box::after{content:"";width:10px;height:5px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg) scale(0);transition:transform .12s;margin-top:-2px;}
+  .item input:checked + .box{background:var(--purple);border-color:var(--purple);}
+  .item input:checked + .box::after{transform:rotate(-45deg) scale(1);}
+  .txt{font-size:14.5px;color:var(--ink);}
+  .item input:checked ~ .txt{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--purple-line);}
+  .item input:focus-visible + .box{outline:2px solid var(--purple);outline-offset:2px;}
+  .txt b{color:var(--ink);} .item input:checked ~ .txt b{color:var(--muted);}
+  .ref{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);text-decoration:none;}
+  .sub-h{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:12px 18px 2px;background:#faf9fc;border-bottom:1px solid var(--line);}
+
+  .ongoing{margin-top:34px;border-left:4px solid var(--purple);background:var(--purple-tint);border-radius:0 16px 16px 0;padding:24px 26px;}
+  .ongoing h3{font-family:'Anton',sans-serif;font-weight:400;font-size:22px;text-transform:uppercase;letter-spacing:.01em;color:var(--ink);margin:0 0 4px;}
+  .ongoing .sub{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);font-weight:700;margin:0 0 16px;}
+  .thread{margin-bottom:16px;}
+  .thread:last-child{margin-bottom:0;}
+  .thread b{color:var(--ink);}
+  .thread p{margin:2px 0 0;font-size:14px;color:var(--body);}
+
+  .foot-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:24px;}
+  .reset{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:none;border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;transition:all .12s;}
+  .reset:hover{border-color:var(--purple-line);color:var(--purple);}
+  .save-note{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);}
+
+  footer.doc-foot{border-top:1px solid var(--line);padding:22px clamp(24px,5vw,56px) 40px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <p class="eyebrow">Ghetto Movement &middot; EP Onboarding</p>
+    <h1>Onboarding<br><span class="accent">Gameplan</span></h1>
+    <p class="lede">Our shared month-one checklist &mdash; everything we work through together to get the new EP up and running. Grouped by area, not scheduled: tackle items in any order, often several at once. Tap to tick.</p>
+    <div class="meta-strip">
+      <span>For <b>EP Onboarding</b></span>
+    </div>
+  </header>
+
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <span class="progress-label">Progress</span>
+      <span class="progress-count" id="count">0 / 0 complete</span>
+    </div>
+    <div class="bar"><div class="bar-fill" id="fill"></div></div>
+  </div>
+
+  <div class="wrap">
+
+    <p class="intro">Everything to cover in the first month. No fixed order &mdash; work down whichever area suits, and the threads at the bottom run right across the month.</p>
+
+    <section class="cat">
+      <div class="cat-head"><span class="cat-num">01</span><h2>Foundations &amp; Systems</h2></div>
+      <div class="items">
+        <label class="item"><input type="checkbox" data-k="w1-team"><span class="box"></span><span class="txt">Learn &amp; understand the <b>team structure</b> &mdash; who does what, who to go to</span></label>
+        <label class="item"><input type="checkbox" data-k="w1-role"><span class="box"></span><span class="txt">Clearly identify <b>your role</b> and the <b>KPIs</b> that drive success in it</span></label>
+        <div class="sub-h">Systems &mdash; access &amp; learn</div>
+        <label class="item"><input type="checkbox" data-k="w1-acuity"><span class="box"></span><span class="txt">Acuity (scheduling)</span></label>
+        <label class="item"><input type="checkbox" data-k="w1-ptm"><span class="box"></span><span class="txt">PTminder / Mindbody</span></label>
+        <label class="item"><input type="checkbox" data-k="w1-vald"><span class="box"></span><span class="txt">VALD Hub</span></label>
+        <label class="item"><input type="checkbox" data-k="w1-drive"><span class="box"></span><span class="txt">Google Docs / Drive</span></label>
+        <label class="item"><input type="checkbox" data-k="w1-prog"><span class="box"></span><span class="txt">Programming structure</span></label>
+      </div>
+    </section>
+
+    <section class="cat">
+      <div class="cat-head"><span class="cat-num">02</span><h2>Assessment &amp; Fees</h2></div>
+      <div class="items">
+        <div class="sub-h" style="border-top:none;">VALD in the assessment process</div>
+        <label class="item"><input type="checkbox" data-k="w2-dynamo"><span class="box"></span><span class="txt">DynaMo</span></label>
+        <label class="item"><input type="checkbox" data-k="w2-forcedecks"><span class="box"></span><span class="txt">ForceDecks (force plates)</span></label>
+        <label class="item"><input type="checkbox" data-k="w2-forceframe"><span class="box"></span><span class="txt">ForceFrame</span></label>
+        <label class="item"><input type="checkbox" data-k="w2-academy"><span class="box"></span><span class="txt">Work through the <b>VALD Academy</b> modules</span></label>
+        <div class="sub-h">Fees</div>
+        <label class="item"><input type="checkbox" data-k="w2-fees"><span class="box"></span><span class="txt">Learn our <b>fee, rebooking &amp; appointment structure</b> <span class="ref">&rarr; Fees &amp; Appointment Types</span></span></label>
+      </div>
+    </section>
+
+    <section class="cat">
+      <div class="cat-head"><span class="cat-num">03</span><h2>Handover &amp; Delivery</h2></div>
+      <div class="items">
+        <label class="item"><input type="checkbox" data-k="w3-handover"><span class="box"></span><span class="txt">Learn how to run a <b>smooth client handover transition</b> <span class="ref">&rarr; Consult SOP</span></span></label>
+        <label class="item"><input type="checkbox" data-k="w3-shadow"><span class="box"></span><span class="txt"><b>Shadow sessions</b> with Liam</span></label>
+        <label class="item"><input type="checkbox" data-k="w3-rebook"><span class="box"></span><span class="txt">Progress to running a <b>rebooking session</b> yourself</span></label>
+      </div>
+    </section>
+
+    <section class="cat">
+      <div class="cat-head"><span class="cat-num">04</span><h2>Marketing &amp; Leads</h2></div>
+      <div class="items">
+        <label class="item"><input type="checkbox" data-k="w4-mkt"><span class="box"></span><span class="txt">Learn our <b>marketing processes for rehab &rarr; gym</b></span></label>
+        <label class="item"><input type="checkbox" data-k="w4-leads"><span class="box"></span><span class="txt">Learn how to <b>onboard new rehab leads</b></span></label>
+      </div>
+    </section>
+
+    <section class="cat">
+      <div class="cat-head"><span class="cat-num">05</span><h2>Classes &amp; Semi-Privates</h2></div>
+      <div class="items">
+        <div class="sub-h" style="border-top:none;">Assist first, lead later &mdash; across Longevity, RSL Veterans, Lift, Build, Prehab &amp; Focus EP</div>
+        <label class="item"><input type="checkbox" data-k="cl-assist"><span class="box"></span><span class="txt"><b>Assist</b> on set classes &amp; semi-privates</span></label>
+        <label class="item"><input type="checkbox" data-k="cl-lead"><span class="box"></span><span class="txt"><b>Lead</b> set classes &amp; semi-privates</span></label>
+        <label class="item"><input type="checkbox" data-k="cl-program"><span class="box"></span><span class="txt">Take on <b>programming duties</b> for set classes &amp; semi-privates</span></label>
+      </div>
+    </section>
+
+    <section class="cat">
+      <div class="cat-head"><span class="cat-num">06</span><h2>Admin Duties</h2></div>
+      <div class="items">
+        <label class="item"><input type="checkbox" data-k="adm-nikki"><span class="box"></span><span class="txt">Meet <b>Nikki</b>, our admin assistant</span></label>
+        <label class="item"><input type="checkbox" data-k="adm-reporting"><span class="box"></span><span class="txt">Understand admin <b>reporting duties</b></span></label>
+        <label class="item"><input type="checkbox" data-k="adm-referral"><span class="box"></span><span class="txt">Learn the <b>referral upload process</b></span></label>
+        <label class="item"><input type="checkbox" data-k="adm-flow"><span class="box"></span><span class="txt">Learn the <b>GP letter &amp; report processing flow</b> <span class="ref">&rarr; GP Letter</span></span></label>
+      </div>
+    </section>
+
+    <div class="ongoing">
+      <h3>Ongoing Threads</h3>
+      <p class="sub">Run across the whole month</p>
+      <div class="thread">
+        <b>Development sessions</b>
+        <p>Audit which MSK cases you're confident in and which need work &mdash; then <b>1 hour a week</b> dedicated to upskilling a chosen topic.</p>
+      </div>
+      <div class="thread">
+        <b>Shadow &rarr; rebook</b>
+        <p>The shadow-then-rebook progression builds over the month &mdash; watch, then do.</p>
+      </div>
+      <div class="thread">
+        <b>Nurture handover clients</b>
+        <p>Every client handed over is nurtured across the first month, not just transferred.</p>
+      </div>
+    </div>
+
+    <div class="foot-actions">
+      <button class="reset" id="reset">Reset all</button>
+      <span class="save-note" id="savenote">Progress saves to this browser</span>
+    </div>
+
+  </div>
+
+  <footer class="doc-foot">
+    <span>Ghetto Movement &middot; 38 Princes Hwy, Fairy Meadow NSW</span>
+    <span>Internal</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var KEY='gm-onboarding-gameplan-v1';
+  var boxes=Array.prototype.slice.call(document.querySelectorAll('.item input[type=checkbox]'));
+  var fill=document.getElementById('fill');
+  var count=document.getElementById('count');
+  var savenote=document.getElementById('savenote');
+  function load(){
+    try{ var s=JSON.parse(localStorage.getItem(KEY)||'{}'); boxes.forEach(function(cb){ if(s[cb.dataset.k]) cb.checked=true; }); }
+    catch(e){ savenote.textContent='Progress won\u2019t save in this view'; }
+  }
+  function save(){ try{ var o={}; boxes.forEach(function(cb){ if(cb.checked) o[cb.dataset.k]=1; }); localStorage.setItem(KEY,JSON.stringify(o)); }catch(e){} }
+  function update(){ var d=boxes.filter(function(cb){return cb.checked;}).length,t=boxes.length,p=t?Math.round(d/t*100):0; fill.style.width=p+'%'; count.textContent=d+' / '+t+' complete'; }
+  boxes.forEach(function(cb){ cb.addEventListener('change',function(){ save(); update(); }); });
+  document.getElementById('reset').addEventListener('click',function(){ boxes.forEach(function(cb){cb.checked=false;}); try{localStorage.removeItem(KEY);}catch(e){} update(); });
+  load(); update();
+})();
